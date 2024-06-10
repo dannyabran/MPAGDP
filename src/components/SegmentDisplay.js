@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import '../App.css';
 
 const SegmentDisplay = ({ segments }) => {
   const downSectionRef = useRef(null);
@@ -14,9 +15,6 @@ const SegmentDisplay = ({ segments }) => {
           segmentVideo.src = segment.src;
           segmentVideo.controls = false;
           segmentVideo.volume = 0.2;
-
-          canvas.width = 640 / 4;
-          canvas.height = 360 / 4;
 
           const onMetadataLoaded = () => {
             segmentVideo.currentTime = (segment.start / 100) * segmentVideo.duration;

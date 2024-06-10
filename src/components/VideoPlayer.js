@@ -1,4 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
+import '../App.css';
+import VideoControls from './VideoControls';
 
 const VideoPlayer = ({ selectedVideo }) => {
   const videoRef = useRef(null);
@@ -65,30 +67,19 @@ const VideoPlayer = ({ selectedVideo }) => {
 
   return (
     <div id="video">
-      <div className="controls">
-        <p ref={toggleButtonRef} className="toggleButton">►</p>
-        <div className="time">{timeText}</div>
-        <div ref={progressRef} className="progress">
-          <div ref={progressBarRef} className="progress__filled"></div>
-        </div>
-        <input
-          type="range"
-          min={0}
-          max={1}
-          step={0.02}
-          value={volume}
-          onChange={event => {
-            setVolume(event.target.valueAsNumber);
-            videoRef.current.volume = event.target.valueAsNumber ** 2; // Apply volume adjustment directly
-          }}
-        />
-        <button onClick={() => setMuted(!muted)}>
-          {muted ? "Unmute" : "Mute"}
-        </button>
-      </div>
       <video ref={videoRef} className="video" key={selectedVideo}>
         <source src={selectedVideo} type="video/mp4"></source>
       </video>
+      <VideoControls
+        toggleButtonRef={toggleButtonRef}
+        progressRef={progressRef}
+        progressBarRef={progressBarRef}
+        timeText={timeText}
+        volume={volume}
+        setVolume={setVolume}
+        muted={muted}
+        setMuted={setMuted}
+      />
     </div>
   );
 };

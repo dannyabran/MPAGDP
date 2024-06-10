@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../App.css';
 import VideoPlayer from '../components/VideoPlayer';
 import CustomTimeline from '../components/CustomTimeline';
@@ -11,6 +11,7 @@ import img2 from './img/video2.png';
 const Remistura = () => {
     const [segments, setSegments] = useState([]);
     const [selectedVideo, setSelectedVideo] = useState();
+    const [isVideoSelectorVisible, setIsVideoSelectorVisible] = useState(false);
   
     const handleVideoSelect = (video) => {
       setSelectedVideo(video);
@@ -19,17 +20,28 @@ const Remistura = () => {
     const handleSegmentSelect = (segment) => {
         setSegments((prevSegments) => [...prevSegments, segment]);
     };
+
+    const toggleVideoSelector = () => {
+        setIsVideoSelectorVisible(!isVideoSelectorVisible);
+    };
   
     return (
       <div className="main">
-        <div className="side">
-          <img src={img1} alt="video1" onClick={() => handleVideoSelect(video1)} />
-          <img src={img2} alt="video2" onClick={() => handleVideoSelect(video2)} />
-        </div>
         <div className="video-player">
           <VideoPlayer selectedVideo={selectedVideo} />
-          <CustomTimeline selectedVideo={selectedVideo} onSegmentSelect={handleSegmentSelect} />
+          <CustomTimeline selectedVideo={selectedVideo} onSegmentSelect={handleSegmentSelect} maxSegments={7} />
           <SegmentDisplay segments={segments} />
+        </div>
+        {isVideoSelectorVisible && (
+          <div className='video-selector'>
+            <img src={img1} alt="video1" onClick={() => handleVideoSelect(video1)} />
+            <img src={img2} alt="video2" onClick={() => handleVideoSelect(video2)} />
+          </div>
+        )}
+        <div className="side">
+          <div className='videos-button' onClick={toggleVideoSelector}></div>
+          <div className='music-button'></div>
+          <div className='exit-button'></div>
         </div>
       </div>
     );

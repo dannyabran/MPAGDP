@@ -11,43 +11,42 @@ body{
   flex-direction: row;
 }
 
-.side{
-  width: 15%;
-  height: 100%;
-  background-color: #242430;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.side img{
-  width: 80%;
-  margin-top: 20%;
+.video-selector img{
+  width: 20%;
+  margin-top: 10%;
+  margin-left: 10%;
+  height: 13%;
   cursor: pointer;
 }
 
 .video-player{
-  width: 90%;
-  height: 70%;
+  flex-grow: 3;
+  width: 30%;
+  height: 100%;
   background-color: #4c4c63;
+  display: flex;
+  flex-direction: column;
 }
 
 #video{
   width: 100%;
-  height: 100%;
+  height: 70%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
+}
+
+.video{
+  width: 100%;
 }
 
 #video video{
-  width: auto;
   height: 100%;
 }
 
 .controls{
   width: 80%;
-  position: fixed;
   display: flex;
   margin-left: 2%;
   align-items: center;
@@ -72,17 +71,24 @@ body{
 
 .progress__filled {
   width: 50%;
-  background: #00ff40;
   flex: 0;
   flex-basis: 0%;
 }
 
 .down-section{
+  background-color: #343445;
   display: flex;
+  height: 40%;
   width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
   overflow-y: scroll;
+}
+
+.down-section canvas{
+  height: 45%;
+  margin-left: 5%;
+  margin-top: 2%;
 }
 
 .segment-video{
@@ -101,13 +107,14 @@ body{
 }
 
 .custom-timeline {
-  width: 90%;
-  margin-left: 5%;
+  width: 60%;
   height: 20px;
   background-color: #ddd;
   position: relative;
   margin-top: 20px;
   cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .custom-progress {
@@ -134,4 +141,45 @@ body{
   width: 3%;
   color: white;
   mix-blend-mode: difference;
+}
+
+.video-selector{
+  width: 60%;
+  height: 100%;
+  display: flex;
+  gap: 2%;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+}
+
+.side{
+  width: 10%;
+  height: 100%;
+  background-color: #242430;
+  gap: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.videos-button{
+  cursor: pointer;
+  width: 80%;
+  height: 15%;
+  background-color: #00ff40;
+}
+
+.music-button{
+  cursor: pointer;
+  width: 80%;
+  height: 15%;
+  background-color: #00ff40;
+}
+
+.exit-button{
+  cursor: pointer;
+  width: 80%;
+  height: 15%;
+  background-color: #00ff40;
 }

@@ -1,11 +1,17 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import '../App.css';
 
-const CustomTimeline = ({ selectedVideo, onSegmentSelect }) => {
+const CustomTimeline = ({ selectedVideo, onSegmentSelect, maxSegments }) => {
   const customProgressRef = useRef(null);
   const currentSegmentRef = useRef(null);
+  const [segmentsCount, setSegmentsCount] = useState(0);
 
   const startSegment = (e) => {
-    
+
+    if (segmentsCount >= maxSegments) {
+      return;
+    }
+
     const rect = customProgressRef.current.getBoundingClientRect();
     const offsetX = e.clientX - rect.left;
     const start = (offsetX / rect.width) * 100; 
@@ -36,7 +42,8 @@ const CustomTimeline = ({ selectedVideo, onSegmentSelect }) => {
       currentSegmentRef.current.end = end;
 
       onSegmentSelect(currentSegmentRef.current);
-      
+
+      setSegmentsCount((prevCount) => prevCount + 1);
       currentSegmentRef.current = null;
     }
   };
