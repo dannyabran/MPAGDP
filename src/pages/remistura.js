@@ -24,13 +24,17 @@ const Remistura = () => {
     const toggleVideoSelector = () => {
         setIsVideoSelectorVisible(!isVideoSelectorVisible);
     };
+
+    const handleDelete = (segmentToDelete) => {
+      setSegments((prevSegments) => prevSegments.filter((segment) => segment !== segmentToDelete));
+    };
   
     return (
       <div className="main">
         <div className="video-player">
           <VideoPlayer selectedVideo={selectedVideo} />
           <CustomTimeline selectedVideo={selectedVideo} onSegmentSelect={handleSegmentSelect} maxSegments={7} />
-          <SegmentDisplay segments={segments} />
+          <SegmentDisplay segments={segments} onDelete={handleDelete}/>
         </div>
         {isVideoSelectorVisible && (
           <div className='video-selector'>

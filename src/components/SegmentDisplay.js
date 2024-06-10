@@ -1,19 +1,19 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../App.css';
 
-const SegmentDisplay = ({ segments }) => {
-  const downSectionRef = useRef(null);
+const SegmentDisplay = ({ segments, onDelete }) => {
+  const segmentsRef = useRef(null);
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
   useEffect(() => {
     const displaySegments = () => {
       if (segments && segments.length > 0) {
-        downSectionRef.current.innerHTML = "";
-        segments.forEach((segment) => {
-          const canvas = document.createElement('canvas');
-          const context = canvas.getContext('2d');
+        segmentsRef.current.innerHTML = "";
+        segments.forEach((segment, index) => {
           const segmentVideo = document.createElement('video');
           segmentVideo.src = segment.src;
           segmentVideo.controls = false;
+          segmentVideo.autoplay = true;
           segmentVideo.volume = 0.2;
 
           const onMetadataLoaded = () => {
@@ -23,35 +23,34 @@ const SegmentDisplay = ({ segments }) => {
           const onTimeUpdate = () => {
             if (segmentVideo.currentTime >= (segment.end / 100) * segmentVideo.duration) {
               segmentVideo.currentTime = (segment.start / 100) * segmentVideo.duration;
-              segmentVideo.play();
             }
+          };
+
+          const selectVideo = () => {
+            setSelectedVideo((prevSelectedVideo) => {
+              if (prevSelectedVideo === segmentVideo) {
+                segmentVideo.classList.remove('selected'); 
+                return null;
+              } else {
+                if (prevSelectedVideo) {
+                  prevSelectedVideo.classList.remove('selected'); 
+                }
+                segmentVideo.classList.add('selected'); 
+                return segmentVideo;
+              }
+            });
           };
 
           segmentVideo.addEventListener('loadedmetadata', onMetadataLoaded);
           segmentVideo.addEventListener('timeupdate', onTimeUpdate);
+          segmentVideo.addEventListener('click', selectVideo);
 
-          let drawInterval;
-          const onPlay = () => {
-            drawInterval = setInterval(() => {
-              context.drawImage(segmentVideo, 0, 0, canvas.width, canvas.height);
-            }, 1000 / 30);
-          };
-
-          const onPause = () => {
-            clearInterval(drawInterval);
-          };
-
-          segmentVideo.addEventListener('play', onPlay);
-          segmentVideo.addEventListener('pause', onPause);
-
-          downSectionRef.current.appendChild(canvas);
-          segmentVideo.play();
+          segmentsRef.current.appendChild(segmentVideo);
 
           return () => {
             segmentVideo.removeEventListener('loadedmetadata', onMetadataLoaded);
             segmentVideo.removeEventListener('timeupdate', onTimeUpdate);
-            segmentVideo.removeEventListener('play', onPlay);
-            segmentVideo.removeEventListener('pause', onPause);
+            segmentVideo.removeEventListener('click', selectVideo);
           };
         });
       }
@@ -60,12 +59,54 @@ const SegmentDisplay = ({ segments }) => {
     displaySegments();
 
     return () => {
-      downSectionRef.current.innerHTML = "";
+      segmentsRef.current.innerHTML = "";
     };
   }, [segments]);
 
+  const handlePlay = () => {
+    if (selectedVideo) {
+      selectedVideo.play();
+    }
+  };
+
+  const handlePause = () => {
+    if (selectedVideo) {
+      selectedVideo.pause();
+    }
+  };
+
+  const handleVolumeChange = (event) => {
+    if (selectedVideo) {
+      selectedVideo.volume = event.target.value;
+    }
+  };
+
+  const handleDelete = (event) => {
+    if (selectedVideo) {
+      onDelete(selectedVideo);
+    }
+  };
+
   return (
-    <div ref={downSectionRef} className="down-section"></div>
+      <div className="down-section">
+        <div className="controls-segments">
+          <button onClick={handlePlay}>Play</button>
+          <button onClick={handlePause}>Pause</button>
+          <button onClick={handleDelete}>Delete</button>
+          <label>
+            Volume:
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              onChange={handleVolumeChange}
+              defaultValue="0.2"
+            />
+          </label>
+        </div>
+        <div ref={segmentsRef} className='segments'></div>
+      </div>
   );
 };
 
