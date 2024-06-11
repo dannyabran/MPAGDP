@@ -1,43 +1,66 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import WaveSurfer from 'wavesurfer.js';
 import '../App.css';
 
 const CustomTimeline = ({ selectedVideo, onSegmentSelect, maxSegments }) => {
-  const customProgressRef = useRef(null);
+  const waveformRef = useRef(null);
+  const wavesurfer = useRef(null);
   const currentSegmentRef = useRef(null);
   const [segmentsCount, setSegmentsCount] = useState(0);
 
-  const startSegment = (e) => {
+  useEffect(() => {
+    if (waveformRef.current) {
+      wavesurfer.current = WaveSurfer.create({
+        container: waveformRef.current,
+        waveColor: '#ddd',
+        progressColor: '#ff0000',
+        backend: 'MediaElement',
+        mediaType: 'video',
+        barWidth: 3,
+        barRadius: 2,
+        barHeight: 0.7,
+      });
 
+      wavesurfer.current.load(selectedVideo);
+    }
+
+    return () => {
+      if (wavesurfer.current) {
+        wavesurfer.current.destroy();
+      }
+    };
+  }, [selectedVideo]);
+
+  const startSegment = (e) => {
     if (segmentsCount >= maxSegments) {
       return;
     }
 
-    const rect = customProgressRef.current.getBoundingClientRect();
+    const duration = wavesurfer.current.getDuration();
+    const rect = waveformRef.current.getBoundingClientRect();
     const offsetX = e.clientX - rect.left;
-    const start = (offsetX / rect.width) * 100; 
-    const indicator = document.createElement('div');
-    indicator.className = 'segment-indicator';
-    indicator.style.left = `${start}%`;
-    customProgressRef.current.appendChild(indicator);
+    const start = (offsetX / rect.width) * duration;
 
-    currentSegmentRef.current = { start, end: null, indicator, src: selectedVideo };
+    currentSegmentRef.current = { start, end: null, src: selectedVideo };
   };
 
   const updateSegment = (e) => {
     if (currentSegmentRef.current) {
-      const rect = customProgressRef.current.getBoundingClientRect();
+      const duration = wavesurfer.current.getDuration();
+      const rect = waveformRef.current.getBoundingClientRect();
       const offsetX = e.clientX - rect.left;
-      const end = (offsetX / rect.width) * 100; 
+      const end = (offsetX / rect.width) * duration;
+
       const width = end - currentSegmentRef.current.start;
-      currentSegmentRef.current.indicator.style.width = `${width}%`;
     }
   };
 
   const endSegment = (e) => {
     if (currentSegmentRef.current) {
-      const rect = customProgressRef.current.getBoundingClientRect();
+      const duration = wavesurfer.current.getDuration();
+      const rect = waveformRef.current.getBoundingClientRect();
       const offsetX = e.clientX - rect.left;
-      const end = (offsetX / rect.width) * 100; 
+      const end = (offsetX / rect.width) * duration;
 
       currentSegmentRef.current.end = end;
 
@@ -51,8 +74,8 @@ const CustomTimeline = ({ selectedVideo, onSegmentSelect, maxSegments }) => {
   return (
     <div className="custom-timeline">
       <div
-        ref={customProgressRef}
-        className="custom-progress"
+        ref={waveformRef}
+        className="waveform"
         onMouseDown={startSegment}
         onMouseMove={updateSegment}
         onMouseUp={endSegment}

@@ -1,5 +1,6 @@
 body{
   margin: 0;
+  overflow: hidden;
 }
 
 .main{
@@ -134,17 +135,20 @@ body{
 .custom-timeline {
   width: 60%;
   height: 5%;
-  background-color: #ddd;
   position: relative;
   cursor: pointer;
   margin-left: auto;
   margin-right: auto;
 }
 
-.custom-progress {
+.waveform {
+  position: relative;
   width: 100%;
   height: 100%;
-  position: relative;
+}
+
+.waveform div{
+  height: 100%;
 }
 
 .custom-progress__filled {
@@ -191,19 +195,99 @@ body{
   cursor: pointer;
   width: 80%;
   height: 15%;
-  background-color: #00ff40;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.videos-button svg{
+  width: 100%;
+  height: 50%;
 }
 
 .music-button{
   cursor: pointer;
   width: 80%;
   height: 15%;
-  background-color: #00ff40;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.music-button svg{
+  width: 100%;
+  height: 50%;
 }
 
 .exit-button{
   cursor: pointer;
   width: 80%;
   height: 15%;
-  background-color: #00ff40;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.exit-button svg{
+  width: 100%;
+  height: 50%;
+}
+
+.video-container {
+  position: relative;
+  display: inline-block;
+}
+
+.thumbnail-preview {
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.thumbnail-preview video {
+  display: block;
+  width: 120px;
+}
+
+.play{
+  outline: none;
+  cursor: pointer;
+  padding: 0 12px;
+  line-height: 20px;
+  height: 30px;
+  max-height: 30px;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  color: white;
+}
+
+.pause{
+  outline: none;
+  cursor: pointer;
+  padding: 0 12px;
+  line-height: 20px;
+  height: 30px;
+  max-height: 30px;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  color: white;
+}
+
+.delete{
+  outline: none;
+  cursor: pointer;
+  padding: 0 12px;
+  line-height: 20px;
+  height: 30px;
+  max-height: 30px;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  color: white;
 }

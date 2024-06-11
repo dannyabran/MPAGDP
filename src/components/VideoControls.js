@@ -15,9 +15,11 @@ const VideoControls = ({
     <div className="controls">
       <p ref={toggleButtonRef} className="toggleButton">►</p>
       <div className="time">{timeText}</div>
+
       <div ref={progressRef} className="progress">
         <div ref={progressBarRef} className="progress__filled"></div>
       </div>
+      
       <input
         type="range"
         min={0}
