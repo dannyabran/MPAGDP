@@ -68,7 +68,7 @@ const VideoPlayer = ({ selectedVideo }) => {
 
   return (
     <div id="video">
-      <video ref={videoRef} key={selectedVideo} webkit-playsinline playsInline>
+      <video ref={videoRef} key={selectedVideo} webkit-playsInline playsInline>
         <source src={selectedVideo} type="video/mp4"></source>
       </video>
       <VideoControls

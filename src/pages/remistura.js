@@ -39,11 +39,18 @@ const Remistura = () => {
     const [selectedVideo, setSelectedVideo] = useState();
     const [showVideoSelector, setShowVideoSelector] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     const { width } = useWindowDimensions();
   
     const handleVideoSelect = (video) => {
       setSelectedVideo(video);
+    };
+
+    const handleImageSelect = (video, index) => {
+      setSelectedVideo(video);
+      setSelectedImage(index);
+      closeVideoSelector();
     };
   
     const handleSegmentSelect = (segment) => {
@@ -81,10 +88,15 @@ const Remistura = () => {
                 <Icon.X size={50} color='#f4f0e7'/> 
               </div>
               <div className='selector-images'>
-                <img src={img1} alt="video1" onClick={() => handleVideoSelect(video1)} />
-                <img src={img2} alt="video2" onClick={() => handleVideoSelect(video2)} />
-                <img src={img3} alt="video1" onClick={() => handleVideoSelect(video3)} />
-                <img src={img4} alt="video2" onClick={() => handleVideoSelect(video4)} />
+              {[img1, img2, img3, img4].map((img, index) => (
+                  <img 
+                    key={index}
+                    src={img} 
+                    alt={`video${index + 1}`} 
+                    onClick={() => handleImageSelect([video1, video2, video3, video4][index], index)}
+                    className={selectedImage === index ? 'selected' : ''}
+                  />
+                ))}
               </div>
             </div>
           )}

@@ -215,6 +215,7 @@ body{
   cursor: pointer;
 }
 
+
 .header{
   width: 100%;
   height: 10%;
@@ -355,8 +356,8 @@ body{
 
   .selector-images img{
     height: 15%;
-    cursor: pointer;
   }
+
 
   .down-section{
     background-color: #212422;

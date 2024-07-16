@@ -19,7 +19,7 @@ const SegmentDisplay = ({ segments }) => {
           segmentVideo.controls = false;
           segmentVideo.autoplay = true;
           segmentVideo.volume = 0.2;
-          segmentVideo.setAttribute('webkit-playsinline', 'webkit-playsinline');
+          segmentVideo.setAttribute('webkit-playsInline', 'playsInline');
 
           const controlsContainer = document.createElement('div');
           controlsContainer.className = 'segment-controls';
