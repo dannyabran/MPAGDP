@@ -19,6 +19,7 @@ const SegmentDisplay = ({ segments }) => {
           segmentVideo.controls = false;
           segmentVideo.autoplay = true;
           segmentVideo.volume = 0.2;
+          segmentVideo.playsinline = true;
 
           const controlsContainer = document.createElement('div');
           controlsContainer.className = 'segment-controls';
