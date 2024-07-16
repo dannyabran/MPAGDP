@@ -61,7 +61,7 @@ const Remistura = () => {
     };
     return (
       <div>
-        {width < 414 ? (
+        {width < 500 ? (
           <div className='main'>
             <div className='top-side'>
               <div className='add-video' onClick={toggleVideoSelector}>
