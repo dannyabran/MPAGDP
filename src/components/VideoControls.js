@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../App.css';
+import * as Icon from 'react-bootstrap-icons';
 
 const VideoControls = ({
   toggleButtonRef,
@@ -11,26 +12,36 @@ const VideoControls = ({
   muted,
   setMuted,
 }) => {
+  const [showVolume, setShowVolume] = useState(false);
+
   return (
     <div className="controls">
-      <p ref={toggleButtonRef} className="toggleButton">►</p>
+      <div ref={toggleButtonRef} className="toggleButton">
+        <Icon.PlayFill color='#f4f0e7'/>
+      </div>
       <div className="time">{timeText}</div>
-
       <div ref={progressRef} className="progress">
         <div ref={progressBarRef} className="progress__filled"></div>
       </div>
-      
-      <input
-        type="range"
-        min={0}
-        max={1}
-        step={0.02}
-        value={volume}
-        onChange={event => setVolume(event.target.valueAsNumber)}
-      />
-      <button onClick={() => setMuted(!muted)}>
-        {muted ? "Unmute" : "Mute"}
-      </button>
+      <div 
+        className="volume-control"
+        onMouseEnter={() => setShowVolume(true)}
+        onMouseLeave={() => setShowVolume(false)}
+      >
+        <div onClick={() => setMuted(!muted)}>
+          {muted ? <Icon.VolumeMuteFill size={20} color='#f4f0e7' /> : <Icon.VolumeUpFill size={20}  color='#f4f0e7'/>}
+        </div>
+        {showVolume && (
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.02}
+            value={volume}
+            onChange={(e) => setVolume(e.target.valueAsNumber)}
+          />
+        )}
+      </div>
     </div>
   );
 };

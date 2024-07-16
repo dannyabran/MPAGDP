@@ -1,20 +1,53 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../App.css';
+import { BsFillPlayFill, BsPauseFill } from 'react-icons/bs';
 
 const SegmentDisplay = ({ segments }) => {
   const segmentsRef = useRef(null);
-  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [selectedSegment, setSelectedSegment] = useState(null);
 
   useEffect(() => {
     const displaySegments = () => {
       if (segments && segments.length > 0) {
         segmentsRef.current.innerHTML = "";
         segments.forEach((segment, index) => {
+          const segmentContainer = document.createElement('div');
+          segmentContainer.className = 'segment-container';
+
           const segmentVideo = document.createElement('video');
           segmentVideo.src = segment.src;
           segmentVideo.controls = false;
           segmentVideo.autoplay = true;
           segmentVideo.volume = 0.2;
+
+          const controlsContainer = document.createElement('div');
+          controlsContainer.className = 'segment-controls';
+          controlsContainer.style.display = 'none';
+
+          const playPauseButton = document.createElement('button');
+          playPauseButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/></svg>';
+          playPauseButton.onclick = () => {
+            if (segmentVideo.paused) {
+              segmentVideo.play();
+              playPauseButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/></svg>';
+            } else {
+              segmentVideo.pause();
+              playPauseButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16"> <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5"/> </svg>';
+            }
+          };
+          const volumeInput = document.createElement('input');
+          volumeInput.type = 'range';
+          volumeInput.min = '0';
+          volumeInput.max = '1';
+          volumeInput.step = '0.01';
+          volumeInput.value = '0.2';
+          volumeInput.oninput = (e) => segmentVideo.volume = e.target.value;
+
+          controlsContainer.appendChild(playPauseButton);
+          controlsContainer.appendChild(volumeInput);
+
+          segmentContainer.appendChild(segmentVideo);
+          segmentContainer.appendChild(controlsContainer);
 
           const onMetadataLoaded = () => {
             segmentVideo.currentTime = (segment.start / 100) * segmentVideo.duration;
@@ -26,31 +59,34 @@ const SegmentDisplay = ({ segments }) => {
             }
           };
 
-          const selectVideo = () => {
-            setSelectedVideo((prevSelectedVideo) => {
-              if (prevSelectedVideo === segmentVideo) {
-                segmentVideo.classList.remove('selected'); 
+          const selectSegment = () => {
+            setSelectedSegment((prevSelected) => {
+              if (prevSelected === segmentContainer) {
+                controlsContainer.style.display = 'none';
+                segmentVideo.classList.remove('selected');
                 return null;
               } else {
-                if (prevSelectedVideo) {
-                  prevSelectedVideo.classList.remove('selected'); 
+                if (prevSelected) {
+                  prevSelected.querySelector('.segment-controls').style.display = 'none';
+                  prevSelected.classList.remove('selected');
                 }
-                segmentVideo.classList.add('selected'); 
-                return segmentVideo;
+                controlsContainer.style.display = 'flex';
+                segmentVideo.classList.add('selected');
+                return segmentContainer;
               }
             });
           };
 
           segmentVideo.addEventListener('loadedmetadata', onMetadataLoaded);
           segmentVideo.addEventListener('timeupdate', onTimeUpdate);
-          segmentVideo.addEventListener('click', selectVideo);
+          segmentVideo.addEventListener('click', selectSegment);
 
-          segmentsRef.current.appendChild(segmentVideo);
+          segmentsRef.current.appendChild(segmentContainer);
 
           return () => {
             segmentVideo.removeEventListener('loadedmetadata', onMetadataLoaded);
             segmentVideo.removeEventListener('timeupdate', onTimeUpdate);
-            segmentVideo.removeEventListener('click', selectVideo);
+            segmentVideo.removeEventListener('click', selectSegment);
           };
         });
       }
@@ -63,57 +99,8 @@ const SegmentDisplay = ({ segments }) => {
     };
   }, [segments]);
 
-  const handlePlay = () => {
-    if (selectedVideo) {
-      selectedVideo.play();
-    }
-  };
-
-  const handlePause = () => {
-    if (selectedVideo) {
-      selectedVideo.pause();
-    }
-  };
-
-  const handleVolumeChange = (event) => {
-    if (selectedVideo) {
-      selectedVideo.volume = event.target.value;
-    }
-  };
-
-  const handleDelete = (event) => {
-    if (selectedVideo) {
-      segmentsRef.current.removeChild(selectedVideo);
-      setSelectedVideo(null);
-    }
-  };
-
   return (
-      <div className="down-section">
-        <div className="controls-segments">
-          <button onClick={handlePlay} className='play'><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
-  <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
-</svg></button>
-          <button onClick={handlePause} className='pause'><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
-  <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5"/>
-</svg></button>
-          <button onClick={handleDelete} className='delete'><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
-</svg></button>
-          <label>
-            Volume:
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.01"
-              onChange={handleVolumeChange}
-              defaultValue="0.2"
-            />
-          </label>
-        </div>
-        <div ref={segmentsRef} className='segments'></div>
-      </div>
+    <div ref={segmentsRef} className="down-section"></div>
   );
 };
 

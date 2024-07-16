@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import '../App.css';
 import VideoControls from './VideoControls';
+import * as Icon from 'react-bootstrap-icons';
 
 const VideoPlayer = ({ selectedVideo }) => {
   const videoRef = useRef(null);
@@ -67,7 +68,7 @@ const VideoPlayer = ({ selectedVideo }) => {
 
   return (
     <div id="video">
-      <video ref={videoRef} className="video" key={selectedVideo}>
+      <video ref={videoRef} key={selectedVideo}>
         <source src={selectedVideo} type="video/mp4"></source>
       </video>
       <VideoControls

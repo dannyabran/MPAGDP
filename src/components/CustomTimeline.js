@@ -1,19 +1,18 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import WaveSurfer from 'wavesurfer.js';
-import '../App.css';
+import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.js';
 
 const CustomTimeline = ({ selectedVideo, onSegmentSelect, maxSegments }) => {
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
-  const currentSegmentRef = useRef(null);
   const [segmentsCount, setSegmentsCount] = useState(0);
 
   useEffect(() => {
     if (waveformRef.current) {
       wavesurfer.current = WaveSurfer.create({
         container: waveformRef.current,
-        waveColor: '#ddd',
-        progressColor: '#ff0000',
+        waveColor: '#212422',
+        progressColor: '#A22C29',
         backend: 'MediaElement',
         mediaType: 'video',
         barWidth: 3,
@@ -21,7 +20,24 @@ const CustomTimeline = ({ selectedVideo, onSegmentSelect, maxSegments }) => {
         barHeight: 0.7,
       });
 
+      const wsRegions = wavesurfer.current.registerPlugin(RegionsPlugin.create());
+
       wavesurfer.current.load(selectedVideo);
+
+      wavesurfer.current.on('ready', () => {
+        wsRegions.enableDragSelection({
+          color: 'rgba(255, 0, 0, 0.1)'
+        });
+      });
+
+      wsRegions.on('region-created', (region) => {
+        if (segmentsCount < maxSegments) {
+          setSegmentsCount((prevCount) => prevCount + 1);
+          onSegmentSelect({ start: region.start, end: region.end, src: selectedVideo });
+        } else {
+          region.remove();
+        }
+      });
     }
 
     return () => {
@@ -29,57 +45,11 @@ const CustomTimeline = ({ selectedVideo, onSegmentSelect, maxSegments }) => {
         wavesurfer.current.destroy();
       }
     };
-  }, [selectedVideo]);
-
-  const startSegment = (e) => {
-    if (segmentsCount >= maxSegments) {
-      return;
-    }
-
-    const duration = wavesurfer.current.getDuration();
-    const rect = waveformRef.current.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left;
-    const start = (offsetX / rect.width) * duration;
-
-    currentSegmentRef.current = { start, end: null, src: selectedVideo };
-  };
-
-  const updateSegment = (e) => {
-    if (currentSegmentRef.current) {
-      const duration = wavesurfer.current.getDuration();
-      const rect = waveformRef.current.getBoundingClientRect();
-      const offsetX = e.clientX - rect.left;
-      const end = (offsetX / rect.width) * duration;
-
-      const width = end - currentSegmentRef.current.start;
-    }
-  };
-
-  const endSegment = (e) => {
-    if (currentSegmentRef.current) {
-      const duration = wavesurfer.current.getDuration();
-      const rect = waveformRef.current.getBoundingClientRect();
-      const offsetX = e.clientX - rect.left;
-      const end = (offsetX / rect.width) * duration;
-
-      currentSegmentRef.current.end = end;
-
-      onSegmentSelect(currentSegmentRef.current);
-
-      setSegmentsCount((prevCount) => prevCount + 1);
-      currentSegmentRef.current = null;
-    }
-  };
+  }, [selectedVideo, maxSegments, onSegmentSelect]);
 
   return (
     <div className="custom-timeline">
-      <div
-        ref={waveformRef}
-        className="waveform"
-        onMouseDown={startSegment}
-        onMouseMove={updateSegment}
-        onMouseUp={endSegment}
-      ></div>
+      <div ref={waveformRef} className="waveform"></div>
     </div>
   );
 };

@@ -6,40 +6,27 @@ body{
 .main{
   width: 100vw;
   height: 100vh;
-  background-color: #343445;
   display: flex;
   flex-direction: row;
 }
 
-.video-selector img{
-  width: 20%;
-  margin-top: 10%;
-  margin-left: 10%;
-  height: 13%;
-  cursor: pointer;
-}
-
 .video-player{
-  flex-grow: 3;
-  width: 30%;
-  height: 100%;
-  background-color: #4c4c63;
+  width: 100%;
+  height: 70%;
+  background-color: #f4f0e7;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 3%;
 }
 
 #video{
-  width: 100%;
-  height: 60%;
+  position: relative;
+  height: 70%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-}
-
-.video{
-  width: 100%;
 }
 
 #video video{
@@ -47,34 +34,36 @@ body{
 }
 
 .controls{
-  width: 80%;
+  position: absolute;
+  bottom: 0;
+  width: 95%;
   display: flex;
-  margin-left: 2%;
   align-items: center;
   z-index: 2;
 }
 
-.controls-segments{
-  background-color: #242430;
-  width: 10%;
-  height: 100%;
+.segment-controls{
   display: flex;
   gap: 5%;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding-left: 2%;
-  padding-right: 2%;
-  color: white;
+  
 }
 
-.controls-segments button{
-  width: 40%;
+.segment-controls button{
+  color: #f4f0e7;
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
 }
+
 
 .toggleButton{
   cursor: pointer;
-  color: white;
+  color: #f4f0e7;
   width: 2%;
 }
 
@@ -89,37 +78,55 @@ body{
 }
 
 .progress__filled {
-  background-color: #76c7c0;
+  background-color: #A22C29;
   width: 50%;
   flex: 0;
   flex-basis: 0%;
 }
 
 .down-section{
-  background-color: #343445;
+  background-color: #212422;
   display: flex;
-  flex-direction: row;
   height: 30%;
   width: 100%;
-}
-
-.segments{
-  width: 90%;
-  height: 100%;
-  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   overflow-y: scroll;
 }
 
-.segments video{
-  height: 40%;
-  margin-left: 5%;
-  margin-top: 2%;
+.down-section::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #212422;
+
+}
+
+.down-section::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #212422;
+  
+}
+
+.down-section::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #A22C29;
+}
+
+.segment-container{
+  width: 20%;
+  margin: 2%;
+}
+
+.segment-container video{
+  width: 100%;
 }
 
 .selected{
-  border: 3px solid white;
+  border: 3px solid #A22C29;
 }
 
 .segment-indicator {
@@ -127,14 +134,14 @@ body{
   top: 0;
   bottom: 0;
   width: 2px; 
-  background-color: red; 
+  background-color: #A22C29; 
   z-index: 2; 
   pointer-events: none; 
 }
 
 .custom-timeline {
   width: 60%;
-  height: 5%;
+  height: 15%;
   position: relative;
   cursor: pointer;
   margin-left: auto;
@@ -153,7 +160,7 @@ body{
 
 .custom-progress__filled {
   height: 100%;
-  background-color: #76c7c0;
+  background-color: #A22C29;
   width: 0;
   position: absolute;
 }
@@ -166,128 +173,206 @@ body{
 }
 
 .time{
-  width: 3%;
   color: white;
   mix-blend-mode: difference;
 }
 
 .video-selector{
-  width: 60%;
-  height: 100%;
+  padding-top: 5%;
+  width: 100%;
+  height: 90%;
   display: flex;
-  gap: 2%;
   flex-wrap: wrap;
   overflow-y: scroll;
+  justify-content: center;
+  gap: 5%;
 }
 
-.side{
-  width: 10%;
+.video-selector::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #212422;
+
+}
+
+.video-selector::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #212422;
+  
+}
+
+.video-selector::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #A22C29;
+}
+
+.video-selector img{
+  height: 15%;
+  cursor: pointer;
+}
+
+.header{
+  width: 100%;
+  height: 10%;
+  background-color: #A22C29;
+}
+
+.right-side{
+  width: 30%;
   height: 100%;
-  background-color: #242430;
-  gap: 15%;
+  background-color: #212422;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
-.videos-button{
-  cursor: pointer;
-  width: 80%;
-  height: 15%;
-  color: white;
+.left-side{
+  width: 70%;
+  height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 }
 
-.videos-button svg{
-  width: 100%;
-  height: 50%;
-}
+@media screen and (max-width: 414px) {
+  .main{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .top-side{
+    width: 100%;
+    height: 50%;
+    background-color: #f4f0e7;
+  }
 
-.music-button{
-  cursor: pointer;
-  width: 80%;
-  height: 15%;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .bottom-side{
+    width: 100%;
+    height: 50%;
+    background-color: #212422;
+    overflow-y: scroll;
+  }
 
-.music-button svg{
-  width: 100%;
-  height: 50%;
-}
+  .video-player{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3%;
+  }
+  
+  #video{
+    position: relative;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #video video{
+    height: 100%;
+  }
 
-.exit-button{
-  cursor: pointer;
-  width: 80%;
-  height: 15%;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .controls{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+  }
 
-.exit-button svg{
-  width: 100%;
-  height: 50%;
-}
+  .custom-timeline {
+    width: 90%;
+    height: 10%;
+    position: relative;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-.video-container {
-  position: relative;
-  display: inline-block;
-}
+  .toggleButton{
+    cursor: pointer;
+    color: #212422;
+    width: 8%;
+  }
 
-.thumbnail-preview {
-  position: absolute;
-  transform: translateX(-50%);
-  z-index: 3;
-  pointer-events: none;
-}
+  .add-video{
+    position: absolute;
+    left: 5%;
+    top: 2%;
+    z-index: 2;
+  }
 
-.thumbnail-preview video {
-  display: block;
-  width: 120px;
-}
+  .video-selector {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #212422;
+    display: flex;
+    z-index: 1000;
+    animation: slideDown 0.3s ease-out;
+    justify-content: left;
+    overflow: hidden;
+  }
+  
+  @keyframes slideDown {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+  }
 
-.play{
-  outline: none;
-  cursor: pointer;
-  padding: 0 12px;
-  line-height: 20px;
-  height: 30px;
-  max-height: 30px;
-  background: none;
-  border: 0;
-  border-radius: 0;
-  color: white;
-}
+  .video-selector.closing {
+    animation: slideUp 0.3s ease-in;
+  }
+  
+  @keyframes slideUp {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100%); }
+  }
 
-.pause{
-  outline: none;
-  cursor: pointer;
-  padding: 0 12px;
-  line-height: 20px;
-  height: 30px;
-  max-height: 30px;
-  background: none;
-  border: 0;
-  border-radius: 0;
-  color: white;
-}
+  .close{
+    position: fixed;
+    margin-left: 5%;
+  }
 
-.delete{
-  outline: none;
-  cursor: pointer;
-  padding: 0 12px;
-  line-height: 20px;
-  height: 30px;
-  max-height: 30px;
-  background: none;
-  border: 0;
-  border-radius: 0;
-  color: white;
+  .selector-images{
+    padding-top: 5%;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    justify-content: center;
+    gap: 5%;
+  }
+
+  .selector-images img{
+    height: 15%;
+    cursor: pointer;
+  }
+
+  .down-section{
+    background-color: #212422;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: row;
+    overflow-y: scroll;
+  }
+
+  .segment-container{
+    width: 40%;
+    margin: 5%;
+  }
+  
+  .segment-container video{
+    width: 100%;
+  }
 }
