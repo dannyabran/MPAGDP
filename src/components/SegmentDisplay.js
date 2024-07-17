@@ -1,14 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../App.css';
 import { BsFillPlayFill, BsPauseFill } from 'react-icons/bs';
+import ReactDOMServer from 'react-dom/server';
+import * as Icon from 'react-bootstrap-icons';
 
-const SegmentDisplay = ({ segments }) => {
+const SegmentDisplay = ({ segments, onDeleteSegment }) => {
   const segmentsRef = useRef(null);
   const [selectedSegment, setSelectedSegment] = useState(null);
 
   useEffect(() => {
     const displaySegments = () => {
-      if (segments && segments.length > 0) {
+      if (segmentsRef.current && segments && segments.length > 0) {
         segmentsRef.current.innerHTML = "";
         segments.forEach((segment, index) => {
           const segmentContainer = document.createElement('div');
@@ -19,23 +21,24 @@ const SegmentDisplay = ({ segments }) => {
           segmentVideo.controls = false;
           segmentVideo.autoplay = true;
           segmentVideo.volume = 0.2;
-          segmentVideo.setAttribute('webkit-playsInline', 'playsInline');
+          segmentVideo.setAttribute('webkit-playsinline', 'playsInline');
 
           const controlsContainer = document.createElement('div');
           controlsContainer.className = 'segment-controls';
           controlsContainer.style.display = 'none';
 
           const playPauseButton = document.createElement('button');
-          playPauseButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/></svg>';
+          playPauseButton.innerHTML = ReactDOMServer.renderToString(<Icon.PlayFill color='#f4f0e7' size={30}/>);
           playPauseButton.onclick = () => {
             if (segmentVideo.paused) {
               segmentVideo.play();
-              playPauseButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/></svg>';
+              playPauseButton.innerHTML = ReactDOMServer.renderToString(<Icon.PlayFill color='#f4f0e7' size={30}/>);
             } else {
               segmentVideo.pause();
-              playPauseButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16"> <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5"/> </svg>';
+              playPauseButton.innerHTML = ReactDOMServer.renderToString(<Icon.PauseFill color='#f4f0e7' size={30}/>);
             }
           };
+
           const volumeInput = document.createElement('input');
           volumeInput.type = 'range';
           volumeInput.min = '0';
@@ -44,8 +47,13 @@ const SegmentDisplay = ({ segments }) => {
           volumeInput.value = '0.2';
           volumeInput.oninput = (e) => segmentVideo.volume = e.target.value;
 
+          const deleteButton = document.createElement('button');
+          deleteButton.innerHTML = ReactDOMServer.renderToString(<Icon.TrashFill color='#f4f0e7' size={20}/>);
+          deleteButton.onclick = () => onDeleteSegment && onDeleteSegment(index);
+
           controlsContainer.appendChild(playPauseButton);
           controlsContainer.appendChild(volumeInput);
+          controlsContainer.appendChild(deleteButton);
 
           segmentContainer.appendChild(segmentVideo);
           segmentContainer.appendChild(controlsContainer);
@@ -83,12 +91,6 @@ const SegmentDisplay = ({ segments }) => {
           segmentVideo.addEventListener('click', selectSegment);
 
           segmentsRef.current.appendChild(segmentContainer);
-
-          return () => {
-            segmentVideo.removeEventListener('loadedmetadata', onMetadataLoaded);
-            segmentVideo.removeEventListener('timeupdate', onTimeUpdate);
-            segmentVideo.removeEventListener('click', selectSegment);
-          };
         });
       }
     };
@@ -96,9 +98,11 @@ const SegmentDisplay = ({ segments }) => {
     displaySegments();
 
     return () => {
-      segmentsRef.current.innerHTML = "";
+      if (segmentsRef.current) {
+        segmentsRef.current.innerHTML = "";
+      }
     };
-  }, [segments]);
+  }, [segments, onDeleteSegment]);
 
   return (
     <div ref={segmentsRef} className="down-section"></div>

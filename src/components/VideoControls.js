@@ -17,7 +17,7 @@ const VideoControls = ({
   return (
     <div className="controls">
       <div ref={toggleButtonRef} className="toggleButton">
-        <Icon.PlayFill color='#f4f0e7'/>
+        <Icon.PlayFill color='#f4f0e7'size={30}/>
       </div>
       <div className="time">{timeText}</div>
       <div ref={progressRef} className="progress">
@@ -29,10 +29,11 @@ const VideoControls = ({
         onMouseLeave={() => setShowVolume(false)}
       >
         <div onClick={() => setMuted(!muted)}>
-          {muted ? <Icon.VolumeMuteFill size={20} color='#f4f0e7' /> : <Icon.VolumeUpFill size={20}  color='#f4f0e7'/>}
+          {muted ? <Icon.VolumeMuteFill size={30} color='#f4f0e7' /> : <Icon.VolumeUpFill size={30}  color='#f4f0e7'/>}
         </div>
         {showVolume && (
           <input
+            className='range'
             type="range"
             min={0}
             max={1}

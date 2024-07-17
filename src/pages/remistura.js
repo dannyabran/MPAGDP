@@ -40,6 +40,7 @@ const Remistura = () => {
     const [showVideoSelector, setShowVideoSelector] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
+    const [segmentsCount, setSegmentsCount] = useState(0);
 
     const { width } = useWindowDimensions();
   
@@ -55,6 +56,12 @@ const Remistura = () => {
   
     const handleSegmentSelect = (segment) => {
         setSegments((prevSegments) => [...prevSegments, segment]);
+        setSegmentsCount(prevCount => prevCount + 1);
+    };
+
+    const handleDeleteSegment = (index) => {
+      setSegments(prevSegments => prevSegments.filter((_, i) => i !== index));
+      setSegmentsCount(prevCount => prevCount - 1);
     };
 
     const toggleVideoSelector = () => setShowVideoSelector(!showVideoSelector);
@@ -76,11 +83,11 @@ const Remistura = () => {
               </div>
               <div className='video-player'>
                 <VideoPlayer selectedVideo={selectedVideo} />
-                <CustomTimeline selectedVideo={selectedVideo} onSegmentSelect={handleSegmentSelect} maxSegments={8} />
+                <CustomTimeline selectedVideo={selectedVideo} onSegmentSelect={handleSegmentSelect} maxSegments={8} segmentsCount={segmentsCount}/>
               </div>
             </div>
             <div className='bottom-side'>
-            <SegmentDisplay segments={segments}/>
+            <SegmentDisplay segments={segments} onDeleteSegment={handleDeleteSegment}/>
             </div>
             {showVideoSelector && (
             <div className={`video-selector ${isClosing ? 'closing' : ''}`}>
@@ -106,9 +113,9 @@ const Remistura = () => {
             <div className='left-side'>
               <div className="video-player">
                 <VideoPlayer selectedVideo={selectedVideo} />
-                <CustomTimeline selectedVideo={selectedVideo} onSegmentSelect={handleSegmentSelect} maxSegments={16} />
+                <CustomTimeline selectedVideo={selectedVideo} onSegmentSelect={handleSegmentSelect} maxSegments={16} segmentsCount={segmentsCount}/>
               </div>
-              <SegmentDisplay segments={segments}/>
+              <SegmentDisplay segments={segments} onDeleteSegment={handleDeleteSegment}/>
             </div>
             <div className="right-side">
                 <div className='header'>

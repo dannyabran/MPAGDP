@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import '../App.css';
 import VideoControls from './VideoControls';
+import ReactDOMServer from 'react-dom/server';
 import * as Icon from 'react-bootstrap-icons';
 
 const VideoPlayer = ({ selectedVideo }) => {
@@ -28,7 +29,9 @@ const VideoPlayer = ({ selectedVideo }) => {
     };
 
     const updateToggleButton = () => {
-      toggleButtonRef.current.innerHTML = video.paused ? "►" : "❚❚";
+      toggleButtonRef.current.innerHTML = video.paused 
+      ? ReactDOMServer.renderToString(<Icon.PlayFill color='#f4f0e7' size={30}/>) 
+      : ReactDOMServer.renderToString(<Icon.PauseFill color='#f4f0e7' size={30}/>) ;
     };
 
     const handleProgress = () => {
@@ -68,7 +71,7 @@ const VideoPlayer = ({ selectedVideo }) => {
 
   return (
     <div id="video">
-      <video ref={videoRef} key={selectedVideo} webkit-playsInline playsInline>
+      <video ref={videoRef} key={selectedVideo} playsInline>
         <source src={selectedVideo} type="video/mp4"></source>
       </video>
       <VideoControls

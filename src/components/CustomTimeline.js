@@ -2,10 +2,9 @@ import React, { useRef, useEffect, useState } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.js';
 
-const CustomTimeline = ({ selectedVideo, onSegmentSelect, maxSegments }) => {
+const CustomTimeline = ({ selectedVideo, onSegmentSelect, maxSegments, segmentsCount}) => {
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
-  const [segmentsCount, setSegmentsCount] = useState(0);
 
   useEffect(() => {
     if (waveformRef.current) {
@@ -32,12 +31,13 @@ const CustomTimeline = ({ selectedVideo, onSegmentSelect, maxSegments }) => {
 
       wsRegions.on('region-created', (region) => {
         if (segmentsCount < maxSegments) {
-          setSegmentsCount((prevCount) => prevCount + 1);
           onSegmentSelect({ start: region.start, end: region.end, src: selectedVideo });
         } else {
           region.remove();
         }
       });
+
+      console.log(segmentsCount);
     }
 
     return () => {
@@ -45,7 +45,7 @@ const CustomTimeline = ({ selectedVideo, onSegmentSelect, maxSegments }) => {
         wavesurfer.current.destroy();
       }
     };
-  }, [selectedVideo, maxSegments, onSegmentSelect]);
+  }, [selectedVideo, maxSegments, onSegmentSelect, segmentsCount]);
 
   return (
     <div className="custom-timeline">
