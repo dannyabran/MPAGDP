@@ -1,3 +1,6 @@
+@import url("fonts/Salvatore\ Roman/stylesheet.css");
+@import url("fonts/Iverse/stylesheet.css");
+
 body{
   margin: 0;
   overflow: hidden;
@@ -207,7 +210,7 @@ input[type="range"]:focus::-moz-range-thumb{
 
 .custom-timeline {
   width: 60%;
-  height: 15%;
+  height: 30%;
   position: relative;
   cursor: pointer;
   margin-left: auto;
@@ -302,6 +305,152 @@ input[type="range"]:focus::-moz-range-thumb{
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.tutorial-step-0{
+  width: 90vw;
+  height: 90vh;
+  z-index: 1000;
+  background-color: #212422e2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20%;
+}
+
+.tutorial-step-1{
+  width: 60vw;
+  height: 90vh;
+  z-index: 1000;
+  background-color: #212422e2;
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20%;
+}
+
+.tutorial-step-2{
+  width: 45vw;
+  height: 90vh;
+  z-index: 1000;
+  background-color: #212422e2;
+  position: absolute;
+  top: 50%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20%;
+}
+
+.tutorial-step-2 .Txt{
+  color: #f4f0e7;
+  width: 95%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10%;
+}
+
+.tutorial-step-3{
+  width: 90vw;
+  height: 60vh;
+  z-index: 1000;
+  background-color: #212422e2;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tutorial-step-3 .Txt{
+  color: #f4f0e7;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.tutorial-step-4{
+  width: 90vw;
+  height: 90vh;
+  z-index: 1000;
+  background-color: #212422e2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20%;
+}
+
+.tutorial-step-4 .botoes .seguinte{
+  display: none;
+ }
+
+.Txt{
+  color: #f4f0e7;
+  width: 80%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10%;
+}
+
+.Txt h1{
+  text-align: center;
+  font-family: Salvatore Roman Black;
+  font-size: 5.25rem;
+  font-style: normal;
+  line-height: 5rem;
+  text-transform: uppercase;
+}
+
+.Txt p{
+  color: #f4f0e7;
+  font-family: Iverse Mono;
+  text-align: center;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.2rem;
+}
+
+.botoes{
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.botoes p{
+  color: #f4f0e7;
+  font-family: Iverse Mono;
+  text-align: center;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.2rem;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 500px) {

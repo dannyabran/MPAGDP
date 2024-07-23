@@ -1,51 +1,57 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.js';
 
-const CustomTimeline = ({ selectedVideo, onSegmentSelect, maxSegments, segmentsCount}) => {
+const CustomTimeline = ({ selectedVideo, onSegmentSelect, maxSegments, segmentsCount, videoRef }) => {
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
 
   useEffect(() => {
-    if (waveformRef.current) {
-      wavesurfer.current = WaveSurfer.create({
-        container: waveformRef.current,
-        waveColor: '#212422',
-        progressColor: '#A22C29',
-        backend: 'MediaElement',
-        mediaType: 'video',
-        barWidth: 3,
-        barRadius: 2,
-        barHeight: 0.7,
-      });
+    if (waveformRef.current && videoRef.current) {
+      const videoElement = videoRef.current.getVideoElement();
+      console.log('videoElement:', videoElement); 
 
-      const wsRegions = wavesurfer.current.registerPlugin(RegionsPlugin.create());
-
-      wavesurfer.current.load(selectedVideo);
-
-      wavesurfer.current.on('ready', () => {
-        wsRegions.enableDragSelection({
-          color: 'rgba(255, 0, 0, 0.1)'
+      if (videoElement) {
+        wavesurfer.current = WaveSurfer.create({
+          container: waveformRef.current,
+          waveColor: '#212422',
+          progressColor: '#A22C29',
+          backend: 'MediaElement',
+          barWidth: 3,
+          barRadius: 2,
+          barHeight: 0.7,
+          media: videoElement, 
         });
-      });
 
-      wsRegions.on('region-created', (region) => {
-        if (segmentsCount < maxSegments) {
-          onSegmentSelect({ start: region.start, end: region.end, src: selectedVideo });
-        } else {
-          region.remove();
-        }
-      });
+        const wsRegions = wavesurfer.current.registerPlugin(RegionsPlugin.create());
 
-      console.log(segmentsCount);
-    }
+        wavesurfer.current.load(selectedVideo);
 
-    return () => {
-      if (wavesurfer.current) {
-        wavesurfer.current.destroy();
+        wavesurfer.current.on('ready', () => {
+          wsRegions.enableDragSelection({
+            color: 'rgba(255, 0, 0, 0.1)'
+          });
+        });
+
+        const handleRegionCreated = (region) => {
+          if (segmentsCount < maxSegments) {
+            onSegmentSelect({ start: region.start, end: region.end, src: selectedVideo });
+          } else {
+            region.remove();
+          }
+        };
+
+        wsRegions.on('region-created', handleRegionCreated);
+
+        return () => {
+          if (wavesurfer.current) {
+            wsRegions.un('region-created', handleRegionCreated);
+            wavesurfer.current.destroy();
+          }
+        };
       }
-    };
-  }, [selectedVideo, maxSegments, onSegmentSelect, segmentsCount]);
+    }
+  }, [selectedVideo, maxSegments, onSegmentSelect, segmentsCount, videoRef]);
 
   return (
     <div className="custom-timeline">

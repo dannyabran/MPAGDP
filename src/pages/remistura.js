@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../App.css';
 import VideoPlayer from '../components/VideoPlayer';
 import CustomTimeline from '../components/CustomTimeline';
@@ -12,6 +12,7 @@ import img2 from './img/video2.png';
 import img3 from './img/video3.png';
 import img4 from './img/video4.png';
 import * as Icon from 'react-bootstrap-icons';
+import Tutorial from '../components/Tutorial';
 
 const useWindowDimensions = () => {
   const [windowDimensions, setWindowDimensions] = useState({
@@ -41,6 +42,8 @@ const Remistura = () => {
     const [isClosing, setIsClosing] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const [segmentsCount, setSegmentsCount] = useState(0);
+
+    const VideoPlayerRef = useRef(null); 
 
     const { width } = useWindowDimensions();
   
@@ -110,10 +113,11 @@ const Remistura = () => {
           </div>
         ) : (
           <div className='main'>
+            <Tutorial />
             <div className='left-side'>
               <div className="video-player">
-                <VideoPlayer selectedVideo={selectedVideo} />
-                <CustomTimeline selectedVideo={selectedVideo} onSegmentSelect={handleSegmentSelect} maxSegments={16} segmentsCount={segmentsCount}/>
+                <VideoPlayer ref={VideoPlayerRef} selectedVideo={selectedVideo} />
+                <CustomTimeline selectedVideo={selectedVideo} onSegmentSelect={handleSegmentSelect} maxSegments={16} segmentsCount={segmentsCount} videoRef={VideoPlayerRef}/>
               </div>
               <SegmentDisplay segments={segments} onDeleteSegment={handleDeleteSegment}/>
             </div>
@@ -121,10 +125,15 @@ const Remistura = () => {
                 <div className='header'>
                 </div>
                 <div className='video-selector'>
-                    <img src={img1} alt="video1" onClick={() => handleVideoSelect(video1)} />
-                    <img src={img2} alt="video2" onClick={() => handleVideoSelect(video2)} />
-                    <img src={img3} alt="video1" onClick={() => handleVideoSelect(video3)} />
-                    <img src={img4} alt="video2" onClick={() => handleVideoSelect(video4)} />
+                  {[img1, img2, img3, img4].map((img, index) => (
+                  <img 
+                    key={index}
+                    src={img} 
+                    alt={`video${index + 1}`} 
+                    onClick={() => handleImageSelect([video1, video2, video3, video4][index], index)}
+                    className={selectedImage === index ? 'selected' : ''}
+                  />
+                ))}
                 </div>
             </div>
         </div>

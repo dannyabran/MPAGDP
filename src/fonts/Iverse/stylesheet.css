@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'Iverse Mono';
+    src: url('IverseMono-Regular.eot');
+    src: local('Iverse Mono'), local('IverseMono-Regular'),
+        url('IverseMono-Regular.eot?#iefix') format('embedded-opentype'),
+        url('IverseMono-Regular.woff2') format('woff2'),
+        url('IverseMono-Regular.woff') format('woff'),
+        url('IverseMono-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Iverse Mono';
+    src: url('IverseMono-Bold.eot');
+    src: local('Iverse Mono Bold'), local('IverseMono-Bold'),
+        url('IverseMono-Bold.eot?#iefix') format('embedded-opentype'),
+        url('IverseMono-Bold.woff2') format('woff2'),
+        url('IverseMono-Bold.woff') format('woff'),
+        url('IverseMono-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+

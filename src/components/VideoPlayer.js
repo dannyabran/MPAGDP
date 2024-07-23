@@ -1,10 +1,10 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
 import '../App.css';
 import VideoControls from './VideoControls';
 import ReactDOMServer from 'react-dom/server';
 import * as Icon from 'react-bootstrap-icons';
 
-const VideoPlayer = ({ selectedVideo }) => {
+const VideoPlayer = forwardRef(({ selectedVideo }, ref) => {
   const videoRef = useRef(null);
   const toggleButtonRef = useRef(null);
   const progressRef = useRef(null);
@@ -12,6 +12,10 @@ const VideoPlayer = ({ selectedVideo }) => {
   const [timeText, setTimeText] = useState("00:00");
   const [volume, setVolume] = useState(1);
   const [muted, setMuted] = useState(false);
+
+  useImperativeHandle(ref, () => ({
+    getVideoElement: () => videoRef.current,
+  }));
 
   useEffect(() => {
     const video = videoRef.current;
@@ -86,6 +90,6 @@ const VideoPlayer = ({ selectedVideo }) => {
       />
     </div>
   );
-};
+});
 
 export default VideoPlayer;
