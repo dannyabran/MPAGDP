@@ -34,6 +34,12 @@ const Tutorial = () => {
         }
     };
 
+    const handlePrevStep = () => {
+        if (currentStep > 0) {
+            setCurrentStep(currentStep - 1);
+        }
+    };
+
     const handleCloseTutorial = () => {
         setIsVisible(false);
     };
@@ -55,6 +61,7 @@ const Tutorial = () => {
                 </div>
                 <div className="botoes">
                     <p onClick={handleCloseTutorial}>Fechar Tutorial</p>
+                    <p className='anterior' onClick={handlePrevStep}>Anterior</p>
                     <p className='seguinte' onClick={handleNextStep}>Seguinte</p>
                 </div>
             </div>

@@ -450,6 +450,10 @@ input[type="range"]:focus::-moz-range-thumb{
   display: none;
  }
 
+.tutorial-step-0 .botoes .anterior{
+  display: none;
+}
+
 .Txt{
   color: #f4f0e7;
   width: 80%;
