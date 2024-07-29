@@ -85,8 +85,8 @@ const Remistura = () => {
                 <Icon.Plus size={50} />
               </div>
               <div className='video-player'>
-                <VideoPlayer selectedVideo={selectedVideo} />
-                <CustomTimeline selectedVideo={selectedVideo} onSegmentSelect={handleSegmentSelect} maxSegments={8} segmentsCount={segmentsCount}/>
+                <VideoPlayer ref={VideoPlayerRef} selectedVideo={selectedVideo} />
+                <CustomTimeline selectedVideo={selectedVideo} onSegmentSelect={handleSegmentSelect} maxSegments={8} segmentsCount={segmentsCount} videoRef={VideoPlayerRef}/>
               </div>
             </div>
             <div className='bottom-side'>
