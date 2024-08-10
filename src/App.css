@@ -1,5 +1,5 @@
-@import url("fonts/Salvatore\ Roman/stylesheet.css");
 @import url("fonts/Iverse/stylesheet.css");
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap');
 
 body{
   margin: 0;
@@ -311,8 +311,8 @@ input[type="range"]:focus::-moz-range-thumb{
 }
 
 .tutorial-step-0{
-  width: 90vw;
-  height: 90vh;
+  width: 80vw;
+  height: 80vh;
   z-index: 1000;
   background-color: #A22C29e2;
   position: absolute;
@@ -329,7 +329,7 @@ input[type="range"]:focus::-moz-range-thumb{
 
 .tutorial-step-1{
   width: 60vw;
-  height: 90vh;
+  height: 70vh;
   z-index: 1000;
   background-color: #A22C29e2;
   position: absolute;
@@ -346,7 +346,7 @@ input[type="range"]:focus::-moz-range-thumb{
 
 .tutorial-step-2{
   width: 45vw;
-  height: 90vh;
+  height: 70vh;
   z-index: 1000;
   background-color: #A22C29e2;
   position: absolute;
@@ -372,7 +372,7 @@ input[type="range"]:focus::-moz-range-thumb{
 
 .tutorial-step-2 .Txt h1{
   text-align: center;
-  font-family: Salvatore Roman Black;
+  font-family: Iverse Mono ;
   font-size: 4rem;
   font-style: normal;
   line-height: 4rem;
@@ -381,16 +381,16 @@ input[type="range"]:focus::-moz-range-thumb{
 
 .tutorial-step-2 .Txt p{
   color: #f4f0e7;
-  font-family: Iverse Mono;
+  font-family: Newsreader;
   text-align: center;
-  font-size: .8rem;
+  font-size: 1.2rem;
   font-style: normal;
   font-weight: 400;
   line-height: 1rem;
 }
 
 .tutorial-step-3{
-  width: 90vw;
+  width: 80vw;
   height: 60vh;
   z-index: 1000;
   background-color: #A22C29e2;
@@ -402,6 +402,7 @@ input[type="range"]:focus::-moz-range-thumb{
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 20%;
   border-radius: 25px;
 }
 
@@ -415,7 +416,7 @@ input[type="range"]:focus::-moz-range-thumb{
 
 .tutorial-step-3 .Txt h1{
   text-align: center;
-  font-family: Salvatore Roman Black;
+  font-family: Iverse Mono ;
   font-size: 4rem;
   font-style: normal;
   line-height: 4rem;
@@ -424,17 +425,17 @@ input[type="range"]:focus::-moz-range-thumb{
 
 .tutorial-step-3 .Txt p{
   color: #f4f0e7;
-  font-family: Iverse Mono;
+  font-family: Newsreader;
   text-align: center;
-  font-size: .8rem;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 400;
   line-height: 1rem;
 }
 
 .tutorial-step-4{
-  width: 90vw;
-  height: 90vh;
+  width: 60vw;
+  height: 60vh;
   z-index: 1000;
   background-color: #A22C29e2;
   position: absolute;
@@ -468,7 +469,7 @@ input[type="range"]:focus::-moz-range-thumb{
 
 .Txt h1{
   text-align: center;
-  font-family: Salvatore Roman Black;
+  font-family: Iverse Mono;
   font-size: 5.25rem;
   font-style: normal;
   line-height: 5rem;
@@ -477,9 +478,9 @@ input[type="range"]:focus::-moz-range-thumb{
 
 .Txt p{
   color: #f4f0e7;
-  font-family: Iverse Mono;
+  font-family: Newsreader;
   text-align: center;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-style: normal;
   font-weight: 400;
   line-height: 1.2rem;

@@ -26,7 +26,7 @@ const Tutorial = () => {
     ];
 
     const [currentStep, setCurrentStep] = useState(0);
-    const [isVisible, setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
 
     const handleNextStep = () => {
         if (currentStep < steps.length - 1) {
