@@ -21,6 +21,8 @@ const VideoPlayer = forwardRef(({ selectedVideo }, ref) => {
     const video = videoRef.current;
     const progressBar = progressBarRef.current;
 
+    if (!video || !progressBar) return; 
+
     const finalVolume = muted ? 0 : volume ** 2;
     video.volume = finalVolume;
 
@@ -33,14 +35,18 @@ const VideoPlayer = forwardRef(({ selectedVideo }, ref) => {
     };
 
     const updateToggleButton = () => {
-      toggleButtonRef.current.innerHTML = video.paused 
-      ? ReactDOMServer.renderToString(<Icon.PlayFill color='#f4f0e7' size={30}/>) 
-      : ReactDOMServer.renderToString(<Icon.PauseFill color='#f4f0e7' size={30}/>) ;
+      if (toggleButtonRef.current) {
+        toggleButtonRef.current.innerHTML = video.paused 
+          ? ReactDOMServer.renderToString(<Icon.PlayFill color='#f4f0e7' size={30}/>) 
+          : ReactDOMServer.renderToString(<Icon.PauseFill color='#f4f0e7' size={30}/>);
+      }
     };
 
     const handleProgress = () => {
-      const progressPercentage = (video.currentTime / video.duration) * 100;
-      progressBar.style.flexBasis = `${progressPercentage}%`;
+      if (progressBar) {
+        const progressPercentage = (video.currentTime / video.duration) * 100;
+        progressBar.style.flexBasis = `${progressPercentage}%`;
+      }
     };
 
     const updateCurrentTimeDisplay = () => {
@@ -50,26 +56,38 @@ const VideoPlayer = forwardRef(({ selectedVideo }, ref) => {
     };
 
     const scrub = (e) => {
-      const rect = progressRef.current.getBoundingClientRect();
-      const offsetX = e.clientX - rect.left;
-      const scrubTime = (offsetX / rect.width) * video.duration;
-      video.currentTime = scrubTime;
+      if (progressRef.current) {
+        const rect = progressRef.current.getBoundingClientRect();
+        const offsetX = e.clientX - rect.left;
+        const scrubTime = (offsetX / rect.width) * video.duration;
+        video.currentTime = scrubTime;
+      }
     };
 
-    toggleButtonRef.current.addEventListener('click', togglePlay);
+    if (toggleButtonRef.current) {
+      toggleButtonRef.current.addEventListener('click', togglePlay);
+    }
     video.addEventListener('play', updateToggleButton);
     video.addEventListener('pause', updateToggleButton);
     video.addEventListener('timeupdate', handleProgress);
     video.addEventListener('timeupdate', updateCurrentTimeDisplay);
-    progressRef.current.addEventListener('click', scrub);
+    if (progressRef.current) {
+      progressRef.current.addEventListener('click', scrub);
+    }
 
     return () => {
-      toggleButtonRef.current.removeEventListener('click', togglePlay);
-      video.removeEventListener('play', updateToggleButton);
-      video.removeEventListener('pause', updateToggleButton);
-      video.removeEventListener('timeupdate', handleProgress);
-      video.removeEventListener('timeupdate', updateCurrentTimeDisplay);
-      progressRef.current.removeEventListener('click', scrub);
+      if (toggleButtonRef.current) {
+        toggleButtonRef.current.removeEventListener('click', togglePlay);
+      }
+      if (video) {
+        video.removeEventListener('play', updateToggleButton);
+        video.removeEventListener('pause', updateToggleButton);
+        video.removeEventListener('timeupdate', handleProgress);
+        video.removeEventListener('timeupdate', updateCurrentTimeDisplay);
+      }
+      if (progressRef.current) {
+        progressRef.current.removeEventListener('click', scrub);
+      }
     };
   }, [selectedVideo, volume, muted]);
 
