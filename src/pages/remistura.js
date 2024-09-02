@@ -5,6 +5,7 @@ import CustomTimeline from '../components/CustomTimeline';
 import SegmentDisplay from '../components/SegmentDisplay';
 import * as Icon from 'react-bootstrap-icons';
 import Tutorial from '../components/Tutorial';
+import Header from '../components/Header';
 
 const importAll = (r) => r.keys().map(r);
 
@@ -138,7 +139,9 @@ const Remistura = () => {
             <SegmentDisplay segments={segments} onDeleteSegment={handleDeleteSegment} />
           </div>
           <div className="right-side">
-            <div className="header"></div>
+            <div className="header">
+              <Header />
+            </div>
             <div className="video-selector">
               {images.map((img, index) => (
                 <img
