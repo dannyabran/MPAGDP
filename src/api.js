@@ -1,2 +1,2 @@
 export const API_URL = 
-"http://mpagdp.local/wp-json/wp/V2";
+"https://mpagdp-f9b666.ingress-bonde.ewp.live/wp-json/wp/V2";
