@@ -139,9 +139,6 @@ const Remistura = () => {
             <SegmentDisplay segments={segments} onDeleteSegment={handleDeleteSegment} />
           </div>
           <div className="right-side">
-            <div className="header">
-              <Header />
-            </div>
             <div className="video-selector">
               {images.map((img, index) => (
                 <img

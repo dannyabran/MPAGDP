@@ -572,6 +572,234 @@ align-self: stretch;
   height: 100%;
 }
 
+.hero-recolha{
+  display: flex;
+  width: 100vw;
+  height: 50vh;
+  padding: 6.5625rem 0rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  background-color: #212422;
+}
+
+.texto-intro-recolha{
+  width: 40%;
+  color: #F4F0E7;
+  font-family: Newsreader;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2rem; 
+}
+
+.estatistica{
+  display: flex;
+  width: 40%;
+  justify-content: center;
+  align-items: center;
+  gap: 10%;
+  flex-shrink: 0;
+}
+
+.num-videos{
+  display: flex;
+  width: 30%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.num-proj{
+  display: flex;
+  width: 30%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+}
+
+.num-videos p{
+  margin: 0;
+  color: #F4F0E7;
+  font-family: "Iverse Mono";
+  font-size: 2.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.num-videos h3{
+  color: #9A2B28;
+  font-family: "Iverse Mono";
+  font-size: 2.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+
+.num-proj p{
+  margin: 0;
+  color: #F4F0E7;
+  font-family: "Iverse Mono";
+  font-size: 2.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.num-proj h3{
+  color: #9A2B28;
+  font-family: "Iverse Mono";
+  font-size: 2.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.conteudo-recolha{
+  display: flex;
+  padding: 6.5625rem 0rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 8.75rem;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.texto-recolha{
+  display: flex;
+  width: 60%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.4375rem;
+}
+
+.texto-recolha h2{
+  color: #9A2B28;
+  text-align: center;
+  font-family: "Iverse Mono";
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.recolha-cont{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.125rem;
+  align-self: stretch;
+}
+
+.recolha-cont p{
+  color: #212422;
+  font-family: Newsreader;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2rem;
+}
+
+.carrossel-recolha{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.img-recolha{
+  width: 100%;
+  border-radius: 1.5625rem;
+}
+
+.hero-divul{
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-divul{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  opacity: 0;
+}
+
+.first{
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+.Divul-cont{
+  margin-top: 8.75rem;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8.75rem;
+  align-self: stretch;
+}
+
+.divulgacao{
+  display: flex;
+  width: 60%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.4375rem;
+}
+
+.divulgacao h2{
+  color: var(--Color, #A22C29);
+
+  font-family: "Iverse Mono";
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.divulgacao p{
+  color: #000;
+
+  font-family: Newsreader;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2rem; /* 133.333% */
+}
+
+.imagens-cura{
+  overflow-x: scroll;
+  display: flex;
+  width: 100%;
+  padding-left: 5rem;
+  align-items: center;
+  gap: 1.875rem;
+  align-self: stretch;
+}
+
+.imagens-cura img{
+  object-fit: cover;
+  width: 37.5rem;
+  height: 28.125rem;
+  border-radius: 1.25rem;
+}
+
 .Footer{
   background-color: #F4F0E7;
   display: flex;

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Logo from "../pages/img/MPAGDP_logo.svg";
+import Logo from "../pages/img-footer/MPAGDP_logo.svg";
 
 const Header = ({}) =>{
 
@@ -9,7 +9,7 @@ const Header = ({}) =>{
                 <img src={Logo} alt="Logo" className="logo" />
             </Link>
             <div className="nav">
-                <Link to="/Recolha">Recolha</Link>
+                <Link to="/recolha">Recolha</Link>
                     
                 <Link to="/Divulgação">Divulgação</Link>
                    

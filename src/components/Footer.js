@@ -1,19 +1,19 @@
 import { Link } from "react-router-dom";
-import Logo from "../pages/img/MPAGDP_logo.svg";
+import Logo from "../pages/img-footer/MPAGDP_logo.svg";
 
 
 const Footer = ({}) =>{
 
     return (
         <div className="Footer">
-            <div classname="footer-container">
+            <div className="footer-container">
                 <div className="info-site">
                     <img src={Logo} alt="Logo" className="logo" />
                     <div className="outros-projetos">   
-                        <img src="../pages/img/cigana 1.png" alt="A Música Cigana a Gostar dela propria" className="cigana" />    
-                        <img src="../pages/img/comida 1.png" alt="A comida portuguesa a Gostar dela propria" className="comida" /> 
-                        <img src="../pages/img/gravar 1.png" alt="A Música portuguesa a grava-se a ela propria" className="gravar" /> 
-                        <img src="../pages/img/iberica 1.png" alt="A Música ibérica a Gostar dela propria" className="iberica" />
+                        <img src="../pages/img-footer/cigana 1.png" alt="A Música Cigana a Gostar dela propria" className="cigana" />    
+                        <img src="../pages/img-footer/comida 1.png" alt="A comida portuguesa a Gostar dela propria" className="comida" /> 
+                        <img src="../pages/img-footer/gravar 1.png" alt="A Música portuguesa a grava-se a ela propria" className="gravar" /> 
+                        <img src="../pages/img-footer/iberica 1.png" alt="A Música ibérica a Gostar dela propria" className="iberica" />
                     </div>
                 </div>
                 <div className="info-cont">
